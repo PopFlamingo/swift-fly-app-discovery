@@ -1,0 +1,13 @@
+# fly.toml file generated for green-wildflower-5049 on 2022-07-04T02:08:22+02:00
+
+app = "swift-fly-app-discovery"
+
+kill_signal = "SIGINT"
+kill_timeout = 5
+processes = []
+
+[env]
+
+[experimental]
+  allowed_public_ports = []
+  auto_rollback = true
