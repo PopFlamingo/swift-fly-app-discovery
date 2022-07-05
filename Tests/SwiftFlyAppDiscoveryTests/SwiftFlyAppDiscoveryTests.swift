@@ -5,6 +5,8 @@ final class SwiftFlyAppDiscoveryTests: XCTestCase {
     func testExample() async throws {
         
         let disovery = try await FlyAppDiscovery(port: 8080)
-        disovery.subscribe(to: .currentApp())
+        for try await first in disovery.subscribe(to: .currentApp()) {
+            print(first)
+        }
     }
 }

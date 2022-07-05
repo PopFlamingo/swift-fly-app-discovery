@@ -3,10 +3,10 @@
     {
       "identity" : "niodns",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/orlandos-nl/NioDNS.git",
+      "location" : "https://github.com/PopFlamingo/NioDNS.git",
       "state" : {
-        "revision" : "71cfedd3310d59b7d19e290176dd2a1a605a4252",
-        "version" : "2.0.7"
+        "branch" : "txt-rawvalues",
+        "revision" : "4dda5f117baea3315ca3938f12b75b490f366ee3"
       }
     },
     {
