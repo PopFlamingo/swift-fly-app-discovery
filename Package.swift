@@ -29,6 +29,7 @@ let package = Package(
                 .product(name: "DNSClient", package: "NioDNS")
             ]
         ),
+        .executableTarget(name: "Run", dependencies: ["FlyAppDiscovery"]),
         .testTarget(
             name: "SwiftFlyAppDiscoveryTests",
             dependencies: ["FlyAppDiscovery"]),
