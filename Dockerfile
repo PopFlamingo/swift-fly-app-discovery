@@ -5,5 +5,5 @@ RUN swift build -c release -Xswiftc -static-executable
 
 FROM ubuntu:focal as runtime
 WORKDIR /runtime
-COPY --from=build /build/.build ./
+COPY --from=build /build/.build/release/Run ./
 ENTRYPOINT ["sleep", "12h"]
