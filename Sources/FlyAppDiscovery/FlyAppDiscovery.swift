@@ -7,7 +7,7 @@ import NIO
 public class FlyAppDiscovery: ServiceDiscovery {
     public init(port: Int) async throws {
         self.eventLoopGroup = MultiThreadedEventLoopGroup(numberOfThreads: 1)
-        self.client = try await DNSClient.connect(on: self.eventLoopGroup).get()
+        self.client = try await DNSClient.connectTCP(on: self.eventLoopGroup, host: "8.8.8.8").get()
         print( try await Self.ipv6Addresses(client: self.client, host: "google.com").first)
         print( try await Self.ipv6Addresses(client: self.client, host: "wikipedia.org").first)
         guard let selfIP = try await Self.ipv6Addresses(client: self.client, host: "_local_ip.internal").first else {
