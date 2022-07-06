@@ -1,6 +1,6 @@
-# fly.toml file generated for green-wildflower-5049 on 2022-07-04T02:08:22+02:00
+# fly.toml file generated for green-sun-4156 on 2022-07-06T05:58:41+02:00
 
-app = "swift-fly-app-discovery"
+app = "green-sun-4156"
 
 kill_signal = "SIGINT"
 kill_timeout = 5

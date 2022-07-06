@@ -1,7 +1,7 @@
 FROM swiftlang/swift:nightly-5.7-focal as build
 WORKDIR /build
 COPY . .
-RUN swift build --configuration debug
+RUN swift build --configuration release -Xswiftc -static-executable
 
 FROM swift:focal-slim as runtime
 WORKDIR /runtime
