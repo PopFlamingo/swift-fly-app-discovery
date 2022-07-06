@@ -6,7 +6,7 @@ struct App {
         let disovery = try await FlyAppDiscovery(port: 8080)
         print("Starting discovery...")
         for try await first in disovery.subscribe(to: .currentApp()) {
-            print(first)
+            print("In loop:", first)
         }
     }
 }

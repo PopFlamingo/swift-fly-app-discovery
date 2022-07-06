@@ -8,9 +8,12 @@ public class FlyAppDiscovery: ServiceDiscovery {
     public init(port: Int) async throws {
         self.eventLoopGroup = MultiThreadedEventLoopGroup(numberOfThreads: 1)
         self.client = try await DNSClient.connectTCP(on: self.eventLoopGroup).get()
+        print( try await Self.ipv6Addresses(client: self.client, host: "google.com").first)
+        print( try await Self.ipv6Addresses(client: self.client, host: "wikipedia.org").first)
         guard let selfIP = try await Self.ipv6Addresses(client: self.client, host: "_local_ip.internal").first else {
             throw Error.noSelfIPAddress
         }
+        print("Self IP is \(selfIP)")
         self.selfIP = selfIP
         self.port = port
     }
@@ -34,7 +37,9 @@ public class FlyAppDiscovery: ServiceDiscovery {
             
                 var adressesSet = Set(try await self.ipv6Addresses(for: service.host))
                 adressesSet.remove(self.selfIP)
+                print(adressesSet)
                 let nodes = adressesSet.map { DistributedActors.Node(host: $0, port: self.port) }
+                print(nodes)
                 nextResultHandler(.success(nodes))
                 while !Task.isCancelled {
                     try await Task.sleep(nanoseconds: 60_000_000_000)
