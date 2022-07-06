@@ -15,7 +15,7 @@ let package = Package(
         // Dependencies declare other packages that this package depends on.
         .package(url: "https://github.com/apple/swift-service-discovery.git", from: "1.2.0"),
         .package(url: "https://github.com/apple/swift-distributed-actors.git", revision: "1.0.0-beta.1.1"),
-        .package(url: "https://github.com/PopFlamingo/NioDNS.git", branch: "txt-rawvalues")
+        .package(url: "https://github.com/PopFlamingo/NioDNS.git", branch: "frame-decoder")
 
     ],
     targets: [

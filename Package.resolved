@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/PopFlamingo/NioDNS.git",
       "state" : {
-        "branch" : "txt-rawvalues",
-        "revision" : "4dda5f117baea3315ca3938f12b75b490f366ee3"
+        "branch" : "frame-decoder",
+        "revision" : "2d2a551a316b661796b569dc177d4822c4ccfd12"
       }
     },
     {
