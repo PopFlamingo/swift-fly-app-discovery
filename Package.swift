@@ -15,7 +15,8 @@ let package = Package(
         // Dependencies declare other packages that this package depends on.
         .package(url: "https://github.com/apple/swift-service-discovery.git", from: "1.2.0"),
         .package(url: "https://github.com/apple/swift-distributed-actors.git", revision: "1.0.0-beta.1.1"),
-        .package(url: "https://github.com/PopFlamingo/NioDNS.git", branch: "reconnect")
+        .package(url: "https://github.com/PopFlamingo/NioDNS.git", branch: "reconnect"),
+        .package(url: "https://github.com/swift-server/swift-backtrace.git", from: "1.3.3")
 
     ],
     targets: [
@@ -26,10 +27,13 @@ let package = Package(
             dependencies: [
                 .product(name: "ServiceDiscovery", package: "swift-service-discovery"),
                 .product(name: "DistributedActors", package: "swift-distributed-actors"),
-                .product(name: "DNSClient", package: "NioDNS")
+                .product(name: "DNSClient", package: "NioDNS"),
             ]
         ),
-        .executableTarget(name: "Run", dependencies: ["FlyAppDiscovery"]),
+        .executableTarget(name: "Run", dependencies: [
+            "FlyAppDiscovery",
+            .product(name: "Backtrace", package: "swift-backtrace")
+        ]),
         .testTarget(
             name: "SwiftFlyAppDiscoveryTests",
             dependencies: ["FlyAppDiscovery"]),
