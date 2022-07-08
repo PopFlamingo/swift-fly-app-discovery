@@ -5,6 +5,8 @@ import DNSClient
 import NIO
 
 public class FlyAppDiscovery: ServiceDiscovery {
+    /// Create a new FlyAppDiscovery instance configured to provide Distributed Actors `Node`s.
+    /// The nodes will be configured to use the provided `port` as their listening port.
     public init(port: Int) async throws {
         self.eventLoopGroup = MultiThreadedEventLoopGroup(numberOfThreads: 1)
         self.client = try await DNSClient.connectTCP(on: self.eventLoopGroup).get()
@@ -97,7 +99,8 @@ public class FlyAppDiscovery: ServiceDiscovery {
 
     public struct InstanceSelector: Hashable {
         let host: String
-
+        /// Select instances of the current app.
+        /// - parameter region: Select which regions to return instances from
         public static func currentApp(region: Region = .all) -> InstanceSelector {
             // Get FLY_APP_NAME from the environment
             guard let flyAppName = ProcessInfo.processInfo.environment["FLY_APP_NAME"] else {
@@ -112,8 +115,12 @@ public class FlyAppDiscovery: ServiceDiscovery {
             }
         }
 
+        /// The region defines the physical location where app instances are located.
         public enum Region {
+            /// Get all instances regardless of region.
             case all
+
+            /// Get instances in the specified region.
             case region(String)
         }
 
