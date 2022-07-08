@@ -32,21 +32,24 @@ public class FlyAppDiscovery: ServiceDiscovery {
     public func subscribe(to service: InstanceSelector, onNext nextResultHandler: @escaping (Result<[DistributedActors.Node], Swift.Error>) -> Void, onComplete completionHandler: @escaping (CompletionReason) -> Void) -> CancellationToken {
         let task = Task {
             do {
-            
-                var adressesSet = Set(try await self.ipv6Addresses(for: service.host))
-                adressesSet.remove(self.selfIP)
-                print(adressesSet)
-                let nodes = adressesSet.map { DistributedActors.Node(host: $0, port: self.port) }
-                print(nodes)
+                var currentAddresses = Set(try await self.ipv6Addresses(for: service.host))
+                currentAddresses.remove(self.selfIP)
+                let nodes = currentAddresses.map { DistributedActors.Node(host: $0, port: self.port) }
                 nextResultHandler(.success(nodes))
                 while !Task.isCancelled {
                     try await Task.sleep(nanoseconds: 60_000_000_000)
-                    let nextFetch = Set(try await self.ipv6Addresses(for: service.host))
-                    var newNodes = nextFetch.subtracting(adressesSet)
-                    newNodes.remove(self.selfIP)
-                    nextResultHandler(.success(newNodes.map { DistributedActors.Node(host: $0, port: self.port) }))
+                    var nextFetch = Set(try await self.ipv6Addresses(for: service.host))
+                    nextFetch.remove(self.selfIP)
+                    // Notify the nextResultHandler only if the set of addresses has changed.
+                    if nextFetch != currentAddresses {
+                        currentAddresses = nextFetch
+                        let nodes = currentAddresses.map { DistributedActors.Node(host: $0, port: self.port) }
+                        nextResultHandler(.success(nodes))
+                    }                    
                 }
-
+                if Task.isCancelled {
+                    completionHandler(.cancellationRequested)
+                }
             } catch {
                 if error is CancellationError {
                     completionHandler(.cancellationRequested)
@@ -87,14 +90,9 @@ public class FlyAppDiscovery: ServiceDiscovery {
     }
 
     static func ipv6Addresses(client: DNSClient, host: String) async throws -> [String] {
-        let message = try await client.sendQuery(forHost: host, type: .aaaa).get()
-        return message.answers.compactMap { answer -> String? in
-            guard case .aaaa(let aaaaRecord) = answer else {
-                return nil
-            }
-            let ipBytes = ByteBuffer(bytes: aaaaRecord.resource.address)
-            let socket = try? SocketAddress(packedIPAddress: ipBytes, port: 0)
-            return socket?.ipAddress
+        let addresses = try await client.initiateAAAAQuery(host: host, port: 0).get()
+        return addresses.compactMap { socketAddress in
+            socketAddress.ipAddress
         }
     }
 
@@ -121,7 +119,6 @@ public class FlyAppDiscovery: ServiceDiscovery {
         }
 
         public typealias Instance = Node
-
     }
     
 }
