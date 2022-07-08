@@ -5,5 +5,5 @@ RUN swift build -c debug -Xswiftc -static-executable
 
 FROM ubuntu:focal as runtime
 WORKDIR /runtime
-COPY --from=build /build/.build/release/Run ./
+COPY --from=build /build/.build/debug/Run ./
 ENTRYPOINT ["sleep", "12h"]
