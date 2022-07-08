@@ -11,7 +11,6 @@ public class FlyAppDiscovery: ServiceDiscovery {
         guard let selfIP = try await Self.ipv6Addresses(client: self.client, host: "_local_ip.internal").first else {
             throw Error.noSelfIPAddress
         }
-        print("Self IP is \(selfIP)")
         self.selfIP = selfIP
         self.port = port
     }
