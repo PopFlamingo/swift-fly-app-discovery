@@ -20,14 +20,6 @@ public class FlyAppDiscovery: ServiceDiscovery {
         self.port = port
     }
 
-    public func syncShutdownGracefully() throws {
-        try eventLoopGroup.syncShutdownGracefully()
-    }
-
-    public func shutdown() async throws {
-        try await eventLoopGroup.shutdownGracefully()
-    }
-
     enum Error: Swift.Error {
         case noSelfIPAddress
     }
