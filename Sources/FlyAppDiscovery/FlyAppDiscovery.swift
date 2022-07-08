@@ -17,6 +17,7 @@ public class FlyAppDiscovery: ServiceDiscovery {
             throw Error.noSelfIPAddress
         }
         self.selfIP = selfIP
+        print("SelfIP is \(selfIP)")
         self.port = port
     }
 
@@ -35,6 +36,7 @@ public class FlyAppDiscovery: ServiceDiscovery {
                 var currentAddresses = Set(try await self.ipv6Addresses(for: service.host))
                 currentAddresses.remove(self.selfIP)
                 let nodes = currentAddresses.map { DistributedActors.Node(host: $0, port: self.port) }
+                print("Providing \(nodes)")
                 nextResultHandler(.success(nodes))
                 while !Task.isCancelled {
                     try await Task.sleep(nanoseconds: 60_000_000_000)
@@ -43,6 +45,7 @@ public class FlyAppDiscovery: ServiceDiscovery {
                     // Notify the nextResultHandler only if the set of addresses has changed.
                     if nextFetch != currentAddresses {
                         currentAddresses = nextFetch
+                        print("Providing (changed) \(nodes)")
                         let nodes = currentAddresses.map { DistributedActors.Node(host: $0, port: self.port) }
                         nextResultHandler(.success(nodes))
                     }                    
