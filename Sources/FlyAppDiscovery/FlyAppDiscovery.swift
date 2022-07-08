@@ -7,8 +7,11 @@ import NIO
 public class FlyAppDiscovery: ServiceDiscovery {
     /// Create a new FlyAppDiscovery instance configured to provide Distributed Actors `Node`s.
     /// The nodes will be configured to use the provided `port` as their listening port.
-    public init(port: Int) async throws {
-        self.eventLoopGroup = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+    ///
+    /// - parameter eventLoopGroup: The event loop group to use for the nodes.
+    /// - parameter port: The port to use for the nodes.
+    public init(eventLoopGroup: EventLoopGroup, port: Int) async throws {
+        self.eventLoopGroup = eventLoopGroup
         self.client = try await DNSClient.connectTCP(on: self.eventLoopGroup).get()
         guard let selfIP = try await Self.ipv6Addresses(client: self.client, host: "_local_ip.internal").first else {
             throw Error.noSelfIPAddress
@@ -29,7 +32,7 @@ public class FlyAppDiscovery: ServiceDiscovery {
         case noSelfIPAddress
     }
 
-    let eventLoopGroup: MultiThreadedEventLoopGroup
+    let eventLoopGroup: EventLoopGroup
     let client: DNSClient
     let selfIP: String
     let port: Int
