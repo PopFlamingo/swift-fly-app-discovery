@@ -18,13 +18,13 @@ let disovery = try await FlyAppDiscovery(eventLoopGroup: eventLoopGroup, port: 8
 
 Selecting instance is done through the `InstanceSelector` type which defines a `.currentApp(region: Region)` static method.
 
-### All instances
+### All app instances
 
 ```swift
  let nodes = try await disovery.lookup(.currentApp())
 ```
 
-### Instances for a certain region
+### App instances for a certain region
 
 ```swift
  let nodes = try await disovery.lookup(.currentApp(.region("scl"))) // Nodes in Santiago de Chile
