@@ -1,6 +1,6 @@
 # FlyAppDiscovery
 
-**⚠️ This package is still a work in progress, the API isn't stable and the code isn't reliable yet.**
+**⚠️ This package is still a work in progress, the API isn't stable and the code isn't reliable yet. Swift 5.7 is required**
 
 FlyAppDiscovery is a Swift package that enables DNS-based discovery of [Fly.io](fly.io) application instances, vended as [`Node`](https://apple.github.io/swift-distributed-actors/1.0.0-beta.1.1/documentation/distributedactors/node) objects from the [Swift Distributed Actors library](https://github.com/apple/swift-distributed-actors/).
 
