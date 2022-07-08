@@ -24,6 +24,6 @@ Selecting instance is done through the `InstanceSelector` type which defines a `
  let nodes = try await disovery.lookup(.currentApp(.region("scl"))) // Nodes in Santiago de Chile
 ```
 
-See the documentation of [Swift Service Discovery](https://github.com/apple/swift-service-discovery) and [Swift Distributed Actors]((https://github.com/apple/swift-distributed-actors/)) for more details on usage.
+See the documentation of [Swift Service Discovery](https://github.com/apple/swift-service-discovery) and [Swift Distributed Actors](https://github.com/apple/swift-distributed-actors/) for more details on usage.
 
 With the Swift Distributed Actors library you don't generally need to call methods like `lookup` or `subscribe` yourself and instead just provide a `ServiceDiscoverySettings` object that the cluster system will use to discover and automatically join the nodes. 
