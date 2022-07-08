@@ -30,7 +30,7 @@ Selecting instance is done through the `InstanceSelector` type which defines a `
  let nodes = try await disovery.lookup(.currentApp(.region("scl"))) // Nodes in Santiago de Chile
 ```
 
-Note that in general, you'd probably want to get the nodes / actors of all regions and then filter them based on their metadata. Using `.currentApp(.region("..."))` makes the service discovery completely unaware of any other regions.
+Note that in general, you'd probably want to get the nodes / actors of all regions and then filter them based on their metadata. Using `.currentApp(.region("..."))` makes the service discovery completely unaware of any other regions and your cluster system will never be able to retrieve the nodes of the other regions if you specify one in particular.
 
 ### More
 
