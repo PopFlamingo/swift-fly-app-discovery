@@ -100,7 +100,7 @@ public class FlyAppDiscovery: ServiceDiscovery {
         let host: String
         /// Select instances of the current app.
         /// - parameter region: Select which regions to return instances from
-        public static func currentApp(region: Region = .all) -> InstanceSelector {
+        public static func currentApp(_ region: Region = .all) -> InstanceSelector {
             // Get FLY_APP_NAME from the environment
             guard let flyAppName = ProcessInfo.processInfo.environment["FLY_APP_NAME"] else {
                 fatalError("FLY_APP_NAME environment variable is not set")
