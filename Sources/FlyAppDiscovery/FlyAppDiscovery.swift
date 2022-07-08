@@ -26,7 +26,7 @@ public class FlyAppDiscovery: ServiceDiscovery {
 
     let eventLoopGroup: EventLoopGroup
     let client: DNSClient
-    let selfIP: String
+    public let selfIP: String
     let port: Int
 
     public func subscribe(to service: InstanceSelector, onNext nextResultHandler: @escaping (Result<[DistributedActors.Node], Swift.Error>) -> Void, onComplete completionHandler: @escaping (CompletionReason) -> Void) -> CancellationToken {
