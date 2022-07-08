@@ -1,4 +1,0 @@
-{
-  "lldb.library": "/usr/lib/liblldb.so",
-  "sourcekit-lsp.inlayHints.enabled": false
-}
