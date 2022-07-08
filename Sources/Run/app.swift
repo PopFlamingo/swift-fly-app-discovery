@@ -9,8 +9,8 @@ struct App {
         let eventLoopGroup = MultiThreadedEventLoopGroup(numberOfThreads: 1)
         let disovery = try await FlyAppDiscovery(eventLoopGroup: eventLoopGroup, port: 8080)
         print("Subscribing to service discovery.")
-        for try await first in disovery.subscribe(to: .currentApp()) {
-            print(first)
+        for try await discoveredNodes in disovery.subscribe(to: .currentApp()) {
+            print(discoveredNodes)
         }
     }
 }
