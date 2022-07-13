@@ -14,7 +14,7 @@ let package = Package(
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         .package(url: "https://github.com/apple/swift-service-discovery.git", from: "1.2.0"),
-        .package(url: "https://github.com/apple/swift-distributed-actors.git", branch: "main"),
+        .package(url: "https://github.com/PopFlamingo/swift-distributed-actors.git", branch: "fix-log-level-settings"),
         .package(url: "https://github.com/PopFlamingo/NioDNS.git", branch: "reconnect"),
         .package(url: "https://github.com/swift-server/swift-backtrace.git", from: "1.3.3")
 
